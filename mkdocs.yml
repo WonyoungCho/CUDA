@@ -1,0 +1,15 @@
+site_name: CUDA programming
+site_url: https://github.com/WonyoungCho/CUDA
+site_description: Tutorial review of CUDA
+repo_url: https://github.com/WonyoungCho/CUDA/
+site_author: Wonyoung Cho
+
+extra_javascript: [docs.js]
+
+pages:
+    - Home: 'index.md'
+    - CUDA:
+        - 'Introduction' : 'CUDA_int.md'
+        - 'Example' : 'CUDA_ex.md'
+
+theme: readthedocs
