@@ -20,7 +20,6 @@ nvcc -arch=sm_70 hello.cu -o a
 
 - **Batch file**
 ```sh
-$ cat sun.sh
 #!/bin/sh
 #SBATCH -J gpu_05
 #SBATCH --time=00:05:00
@@ -32,7 +31,7 @@ srun ./a
 ```
 - **Running**
 ```sh
-$ sbatch sun.sh
+$ sbatch run.sh
 ```
 ```sh
 $ cat result_19790.out
