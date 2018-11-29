@@ -28,6 +28,9 @@ $ cat sun.sh
 srun ./a
 ```
 ```sh
+$ sbatch sun.sh
+```
+```sh
 $ cat result_19790.out
 ==========================================
 SLURM_JOB_ID = 19790
