@@ -17,6 +17,23 @@ __host__cudaError_t cudaGetDeviceProperties(cudaDeviceProp *prop, int device)
 > - `prop` : 지정된 디바이스에 대한 속성
 > - `device` : 속성을 얻고자 하는 디바이스 번호
 
+## CUDA Kernel code
+Function | Run on | Call from| Return type
+-|-|-|-
+`__global__` | Device | Host <br> Device in up to Compute capability 3.5 | void
+`__device__` | Device | Device <br> 그리드와 블록을 지정할 수 없다. |
+`__host__` | Host | Host | optional
+
+
+## CUDA Kernel 호출
+``cu
+function_name<<<grid,block>>>(argument list);
+```
+> - `grid` : 블록의 개수인 그리드의 크기
+> - `block` : 각 블록에서 스레드의 개수인 블록의 크기
+```
+
+
 ## Partition
 ```sh
 $ sinfo
