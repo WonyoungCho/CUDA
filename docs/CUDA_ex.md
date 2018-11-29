@@ -61,7 +61,7 @@ Function | Run on | Call from| Return type
 `__host__` | Host | Host | optional
 
 - **Example - device**
-```cu
+```c
 $ cat devicekernel.cu
 #include <stdio.h>
 __global__ void helloFromHost();
@@ -109,7 +109,7 @@ tid1 : 5
 ```
 
 - **Example -host & device**
-```cu
+```c
 #include <stdio.h>
 __host__ __device__ void Print()
 {
@@ -143,7 +143,7 @@ Hello World
 ```
 
 # Memory copy
-```cu
+```c
 #include <stdio.h>
 __device__ void PrintArray(int tid, int *A)
 {
@@ -218,7 +218,7 @@ h_B[4]=4
 ```
 
 # Vector addition
-```cu
+```c
 #include <cuda_runtime.h>
 #include <stdio.h>
 #include <stdlib.h>
