@@ -17,7 +17,7 @@ __host__cudaError_t cudaGetDeviceProperties(cudaDeviceProp *prop, int device)
 > - `prop` : 지정된 디바이스에 대한 속성
 > - `device` : 속성을 얻고자 하는 디바이스 번호
 
-## CUDA Kernel code
+## CUDA Kernel Function
 Function | Run on | Call from| Return type
 :-:|:-:|:-|:-:
 `__global__` | Device | Host <br> Device in up to Compute capability 3.5 | void
