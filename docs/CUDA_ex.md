@@ -14,6 +14,10 @@ int main(void)
     return 0;
 }
 ```
+```sh
+nvcc -arch=sm_70 hello.cu -o a
+```
+
 - **Batch file**
 ```sh
 $ cat sun.sh
@@ -26,6 +30,7 @@ $ cat sun.sh
 #SBATCH --gres=gpu:1
 srun ./a
 ```
+- **Running**
 ```sh
 $ sbatch sun.sh
 ```
