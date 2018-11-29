@@ -151,7 +151,7 @@ runtimeVersion : 9000
         Maximum sizes of each dimension of a grid:      2147483647 x 65535 x 65535
 ```
 
-## C로 작성된 파일을 Cuda로 comple할 때
+## C로 작성된 파일을 Cuda로 compile할 때
 ```c
 nvcc -arch=sm_70 -x cu hello.c -o a
 ```
