@@ -8,7 +8,7 @@ Currently Loaded Modulefiles:
 ```
 
 # alias
-```
+```bash
 alias cs='cp /home01/kedu05/ex/sun.sh ./'
 alias cm='nvcc -arch=sm_70 -o a'
 alias rn='sbatch sun.sh'
