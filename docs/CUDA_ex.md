@@ -53,7 +53,9 @@ Hello World From GPU!
 Hello World From GPU!
 ```
 
-# Device Kernel
+# Kernel function
+
+- **Example - device**
 ```cu
 $ cat devicekernel.cu
 #include <stdio.h>
@@ -99,4 +101,38 @@ tid1 : 2
 tid1 : 3
 tid1 : 4
 tid1 : 5
+```
+
+- **Example -host & device**
+```cu
+#include <stdio.h>
+__host__ __device__ void Print()
+{
+        printf("Hello World\n");
+}
+__global__ void Wrapper()
+{
+        Print();
+}
+int main()
+{
+        Print();
+        printf("==================\n");
+        Wrapper<<<1,5>>>();
+        cudaDeviceReset();
+        return 0;
+}
+```
+```sh
+==========================================
+SLURM_JOB_ID = 19819
+SLURM_NODELIST = tesla24
+==========================================
+Hello World
+==================
+Hello World
+Hello World
+Hello World
+Hello World
+Hello World
 ```
