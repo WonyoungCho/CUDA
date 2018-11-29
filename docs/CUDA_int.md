@@ -10,7 +10,6 @@
 - 즉, 워프는 SM에서 실행의 단위가 된다.
 
 ## CUDA Runtime API
-
 ```c
 __host__cudaError_t cudaGetDeviceProperties(cudaDeviceProp *prop, int device)
 ```
