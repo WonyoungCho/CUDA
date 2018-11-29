@@ -17,7 +17,6 @@ __host__cudaError_t cudaGetDeviceProperties(cudaDeviceProp *prop, int device)
 > - `prop` : 지정된 디바이스에 대한 속성
 > - `device` : 속성을 얻고자 하는 디바이스 번호
 
-
 ## Partition
 ```sh
 $ sinfo
@@ -78,4 +77,81 @@ tesla27        1   dual_v100_node   allocated   20   2:10:1 129031        0     
 tesla28        1   dual_v100_node   allocated   20   2:10:1 129031        0      1 TeslaV10 none
 tesla29        1 single_v100_node        idle   20   2:10:1 100000        0      1 TeslaV10 none
 tesla30        1 single_v100_node        idle   20   2:10:1 100000        0      1 TeslaV10 none
+```
+
+## Device
+```c
+$ cat DeviceQuery.cu
+#include <cuda_runtime.h>
+#include <stdio.h>
+int main(void)
+{
+        cudaDeviceProp deviceProp;
+        cudaGetDeviceProperties(&deviceProp, 0);
+        printf("Device : \"%s\"\n", deviceProp.name);
+
+        int driverVersion = 0, runtimeVersion = 0;
+        cudaDriverGetVersion(&driverVersion);
+        cudaRuntimeGetVersion(&runtimeVersion);
+        printf("driverVersion : %d\n", driverVersion);
+        printf("runtimeVersion : %d\n", runtimeVersion);
+        printf("\tCUDA Driver Version / Runtime Version  %d.%d / %d.%d\n",
+                        driverVersion/1000, (driverVersion%100)/10,
+                        runtimeVersion/1000, (runtimeVersion%100)/10);
+        printf("\tCUDA Capability Major/Minor version number : %d.%d\n",
+                        deviceProp.major, deviceProp.minor);
+        printf("\tTotal amount of global memory : %.2f GBytes (%llu bytes)\n",
+                        (float)deviceProp.totalGlobalMem/(pow(1024.0,3)),
+                        (unsigned long long) deviceProp.totalGlobalMem);
+        printf("\tGPU Clock rate :\t%.0f MHz(%0.2f GHz)\n",
+                        deviceProp.clockRate*1e-3f, deviceProp.clockRate*1e-6f);
+        printf("\tMemory Clock rate :\t%.0f Mhz\n", deviceProp.memoryClockRate*1e-3f);
+        printf("\tMemory Bus Width :\t%d-bit\n", deviceProp.memoryBusWidth);
+        if(deviceProp.l2CacheSize)
+                printf("\tL2 Cache Size:\t%d bytes\n",deviceProp.l2CacheSize);
+        printf("\tTotal amount of constant memory:\t%lu bytes\n",deviceProp.totalConstMem);
+        printf("\tTotal amount of shared memory per block:\t%lu bytes\n",deviceProp.sharedMemPerBlock);
+        printf("\tTotal number of registers available per block:\t%d\n",deviceProp.regsPerBlock);
+        printf("\tWarp Size:\t%d\n",deviceProp.warpSize);
+        printf("\tMaximum number of threads per multiprocessor:\t%d\n",deviceProp.maxThreadsPerMultiProcessor);
+        printf("\tMaximum number of thread per block:\t%d\n",deviceProp.maxThreadsPerBlock);
+        printf("\tMaximum sizes of each dimension of a block:\t%d x %d x %d\n",
+                        deviceProp.maxThreadsDim[0], deviceProp.maxThreadsDim[1], deviceProp.maxThreadsDim[2]);
+        printf("\tMaximum sizes of each dimension of a grid:\t%d x %d x %d\n",
+                        deviceProp.maxGridSize[0],deviceProp.maxGridSize[1],deviceProp.maxGridSize[2]);
+        exit(EXIT_SUCCESS);
+
+        return 0;
+
+}
+```
+```sh
+$ sbatch sun.sh
+==========================================
+SLURM_JOB_ID = 19799
+SLURM_NODELIST = tesla27
+==========================================
+Device : "Tesla V100-PCIE-16GB"
+driverVersion : 9000
+runtimeVersion : 9000
+        CUDA Driver Version / Runtime Version  9.0 / 9.0
+        CUDA Capability Major/Minor version number : 7.0
+        Total amount of global memory : 15.77 GBytes (16936861696 bytes)
+        GPU Clock rate :        1380 MHz(1.38 GHz)
+        Memory Clock rate :     877 Mhz
+        Memory Bus Width :      4096-bit
+        L2 Cache Size:  6291456 bytes
+        Total amount of constant memory:        65536 bytes
+        Total amount of shared memory per block:        49152 bytes
+        Total number of registers available per block:  65536
+        Warp Size:      32
+        Maximum number of threads per multiprocessor:   2048
+        Maximum number of thread per block:     1024
+        Maximum sizes of each dimension of a block:     1024 x 1024 x 64
+        Maximum sizes of each dimension of a grid:      2147483647 x 65535 x 65535
+```
+
+## C로 작성된 파일을 Cuda로 comple할 때
+```c
+nvcc -arch=sm_70 -x cu hello.c -o a
 ```
