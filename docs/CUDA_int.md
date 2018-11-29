@@ -24,7 +24,6 @@ Function | Run on | Call from| Return type
 `__device__` | Device | Device <br> 그리드와 블록을 지정할 수 없다. |
 `__host__` | Host | Host | optional
 
-
 ## CUDA Kernel 호출
 ``cu
 function_name<<<grid,block>>>(argument list);
