@@ -16,7 +16,7 @@ skl_node            up 1-00:00:00      5   idle skl[01-03,06-07]
 bigmem_node         up 1-00:00:00      2   idle bigmem,bigmem2
 ```
 ```sh
-]$ sinfo -Nel
+$ sinfo -Nel
 Thu Nov 29 09:58:25 2018
 NODELIST   NODES        PARTITION       STATE CPUS    S:C:T MEMORY TMP_DISK WEIGHT AVAIL_FE REASON
 bigmem         1      bigmem_node        idle   40   4:10:1 516860        0      1   (null) none
