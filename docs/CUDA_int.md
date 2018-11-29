@@ -1,6 +1,6 @@
 # Introduction
 
-# Module
+## Module
 
 ```sh
 Currently Loaded Modulefiles:
