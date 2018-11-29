@@ -2,7 +2,6 @@
 
 ```c
 #include <stdio.h>
-//#include <cuda.h>
 __global__ void helloFromGPU(void)
 {
     printf("Hello World From GPU!\n");
