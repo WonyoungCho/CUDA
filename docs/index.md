@@ -31,3 +31,9 @@ alias lg='sacct'
 
 - <https://linuxconfig.org/how-to-install-the-nvidia-drivers-on-centos-7-linux>
 - <https://linuxconfig.org/how-to-install-nvidia-cuda-toolkit-on-centos-7-linux>
+
+## Archtecture
+```sh
+nvcc -arch=sm_##
+```
+- <https://developer.nvidia.com/cuda-gpus>
