@@ -26,3 +26,8 @@ alias lg='sacct'
 - CUDA 병렬프로그래밍
 - CUDA Fortran for Scientists and Engineers
 - NVIDIA TESLA V100 GPU ARCHITECTURE(white paper)
+
+## Install
+
+- <https://linuxconfig.org/how-to-install-the-nvidia-drivers-on-centos-7-linux>
+- <https://linuxconfig.org/how-to-install-nvidia-cuda-toolkit-on-centos-7-linux>
