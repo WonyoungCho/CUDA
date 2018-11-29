@@ -40,15 +40,15 @@ $ cat result_19790.out
 SLURM_JOB_ID = 19790
 SLURM_NODELIST = tesla27
 ==========================================
-hello_cpu
-hello!
-hello!
-hello!
-hello!
-hello!
-hello!
-hello!
-hello!
-hello!
-hello!
+Hello World from CPU!
+Hello World From GPU!
+Hello World From GPU!
+Hello World From GPU!
+Hello World From GPU!
+Hello World From GPU!
+Hello World From GPU!
+Hello World From GPU!
+Hello World From GPU!
+Hello World From GPU!
+Hello World From GPU!
 ```
