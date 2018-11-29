@@ -54,7 +54,7 @@ Hello World From GPU!
 ```
 
 # Kernel function
-## CUDA Kernel code
+
 Function | Run on | Call from| Return type
 :-:|:-:|:-|:-:
 `__global__` | Device | Host <br> Device in up to Compute capability 3.5 | void
