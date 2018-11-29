@@ -1,6 +1,5 @@
 # Specification
-```cu
-$ cat DeviceQuery.cu
+```c
 #include <cuda_runtime.h>
 #include <stdio.h>
 int main(void)
@@ -41,7 +40,6 @@ int main(void)
         exit(EXIT_SUCCESS);
 
         return 0;
-
 }
 ```
 ```sh
