@@ -19,7 +19,7 @@ __host__cudaError_t cudaGetDeviceProperties(cudaDeviceProp *prop, int device)
 
 ## CUDA Kernel code
 Function | Run on | Call from| Return type
--|-|-|-
+:-:|:-:|:-|:-:
 `__global__` | Device | Host <br> Device in up to Compute capability 3.5 | void
 `__device__` | Device | Device <br> 그리드와 블록을 지정할 수 없다. |
 `__host__` | Host | Host | optional
