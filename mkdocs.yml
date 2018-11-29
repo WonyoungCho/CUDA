@@ -12,4 +12,5 @@ pages:
         - 'Introduction' : 'CUDA_int.md'
         - 'Example' : 'CUDA_ex.md'
     -CTPU: 'ctpu.md'
+    
 theme: readthedocs
