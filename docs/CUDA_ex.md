@@ -548,6 +548,8 @@ Matrices match.
 ```
 
 # Occupancy
+
+- **Example 1**
 ```c
 #include <stdio.h>
 #include <cuda_runtime.h>
