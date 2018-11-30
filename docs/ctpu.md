@@ -19,3 +19,49 @@ runtimeVersion : 10000
 	Maximum sizes of each dimension of a block:	1024 x 1024 x 64
 	Maximum sizes of each dimension of a grid:	2147483647 x 65535 x 65535
 ```
+
+GTX TITAN X Engine Specs:
+
+CUDA Cores | 3072
+Base Clock (MHz) | 1000
+Boost Clock (MHz) | 1075
+Texture Fill Rate (GigaTexels/sec) | 192
+
+GTX TITAN X Memory Specs:
+
+Memory Clock | 7.0 Gbps
+Standard Memory Config | 12 GB
+Memory Interface | GDDR5
+Memory Interface Width | 384-bit
+Memory Bandwidth (GB/sec) | 336.5
+
+GTX TITAN X Technology Support:
+Yes (4-way)NVIDIA SLI® Ready
+YesNVIDIA G-Sync™-Ready
+YesNVIDIA GameStream™-Ready
+YesGeForce ShadowPlay™
+2.0NVIDIA GPU Boost™
+YesDynamic Super Resolution
+YesMFAA
+YesNVIDIA GameWorks™
+12 API with Feature Level 12.1Microsoft DirectX
+4.5OpenGL
+YesCUDA
+PCI Express 3.0 Bus Support
+Windows 8 & 8.1, Windows 7, Windows Vista, Linux, FreeBSD x86OS Certification
+Display Support:
+5120x3200Maximum Digital Resolution*
+2048x1536Maximum VGA Resolution
+Dual Link DVI-I, HDMI 2.0, 3x DisplayPort 1.2 Standard Display Connectors
+4 displaysMulti Monitor
+YesHDCP
+InternalAudio Input for HDMI
+GTX TITAN X Graphics Card Dimensions:
+4.376 inchesHeight
+10.5 inchesLength
+Dual-widthWidth
+Thermal and Power Specs:
+91 CMaximum GPU Tempurature (in C)
+250 WGraphics Card Power (W)
+600 WRecommended System Power (W)**
+6-pin + 8-pin
