@@ -32,9 +32,7 @@ Standard Memory Config | 12 GB
 Memory Interface | GDDR5
 Memory Interface Width | 384-bit
 Memory Bandwidth (GB/sec) | 336.5
-
-GTX TITAN X Technology Support: | -
----|---
+**GTX TITAN X Technology Support:** | -
 NVIDIA SLI® Ready | Yes (4-way)
 NVIDIA G-Sync™-Ready | Yes
 NVIDIA GameStream™-Ready | Yes
@@ -48,24 +46,18 @@ OpenGL | 4.5
 CUDA | Yes
 Bus Support | PCI Express 3.0 
 OS Certification | Windows 8 & 8.1, Windows 7, Windows Vista, Linux, FreeBSD x86
-
-Display Support: | -
----|---
+**Display Support:** | -
 Maximum Digital Resolution* | 5120x3200
 Maximum VGA Resolution | 2048x1536
 Standard Display Connectors | Dual Link DVI-I, HDMI 2.0, 3x DisplayPort 1.2 
 Multi Monitor | 4 displays
 HDCP | Yes
 Audio Input for HDMI | Internal
-
-GTX TITAN X Graphics Card Dimensions: | -
----|---
+**GTX TITAN X Graphics Card Dimensions:** | -
 Height | 4.376 inches
 Length | 10.5 inches
 Width | Dual-width
-
-Thermal and Power Specs: | -
----|---
+**Thermal and Power Specs:** | -
 Maximum GPU Tempurature (in C) | 91 C
 Graphics Card Power (W) | 250 W
 Recommended System Power (W)** |600 W
