@@ -25,7 +25,7 @@ Function | Run on | Call from| Return type
 `__host__` | Host | Host | optional
 
 ## CUDA Kernel 호출
-``cu
+```c
 function_name<<<grid,block>>>(argument list);
 ```
 > - `grid` : 블록의 개수인 그리드의 크기
