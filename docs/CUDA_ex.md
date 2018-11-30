@@ -19,7 +19,7 @@ nvcc -arch=sm_70 hello.cu -o a
 ```
 
 - **Batch file**
-```sh
+```batch
 #!/bin/sh
 #SBATCH -J gpu_05
 #SBATCH --time=00:05:00
