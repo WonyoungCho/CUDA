@@ -546,3 +546,50 @@ Matrices match.
                     0.00%  2.2400us         4     560ns     239ns     998ns  cuDeviceGet
                     0.00%  2.1440us         1  2.1440us  2.1440us  2.1440us  cudaConfigureCall
 ```
+
+# Occupancy
+```c
+#include <stdio.h>
+#include <cuda_runtime.h>
+// device code
+__global__ void MyKernel(int *d, int *a, int *b)
+{
+    int idx = threadIdx.x + blockIdx.x*blockDim.x;
+    d[idx]=a[idx] +b[idx];
+}
+
+// host code
+int main()
+{
+    int numBlocks;
+    int blockSize=32;
+    cudaDeviceProp prop;
+    cudaGetDeviceProperties(&prop,0);
+    cudaOccupancyMaxActiveBlocksPerMultiprocessor(&numBlocks, MyKernel,blockSize,0);
+    int activeWarps = numBlocks*(blockSize/prop.warpSize);
+    int maxWarps = prop.maxThreadsPerMultiProcessor/prop.warpSize;
+    double occupancy = (double)activeWarps/maxWarps * 100;
+    printf("Max # of Blocks : %d\n",numBlocks);
+    printf("ActiveWarps : %d\n",activeWarps);
+    printf("MaxWarps : %d\n",maxWarps);
+    printf("Occupancy = %5.2f %\n",occupancy);
+    return 0;
+}
+```
+
+```sh
+$ nvcc nvcc -arch=sm_70 --ptxas-options=-v -o a occupancy1.cu
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z8MyKernelPiS_S_' for 'sm_70'
+ptxas info    : Function properties for _Z8MyKernelPiS_S_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 10 registers, 376 bytes cmem[0]
+```
+- `--ptxas-options=-v`를 이용해 얻은 리소스 사용량을 Occupancy calculator를 이용하여 Occupancy를 얻을 수 있다.
+
+```sh
+Max # of Blocks : 32
+ActiveWarps : 32
+MaxWarps : 64
+Occupancy = 50.00 %
+```
