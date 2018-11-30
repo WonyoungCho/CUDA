@@ -27,29 +27,31 @@ Base Clock (MHz) | 1000
 Boost Clock (MHz) | 1075
 Texture Fill Rate (GigaTexels/sec) | 192
 
-GTX TITAN X Memory Specs:
-
+GTX TITAN X Memory Specs: | -
 Memory Clock | 7.0 Gbps
 Standard Memory Config | 12 GB
 Memory Interface | GDDR5
 Memory Interface Width | 384-bit
 Memory Bandwidth (GB/sec) | 336.5
 
-GTX TITAN X Technology Support:
-Yes (4-way)NVIDIA SLI® Ready
-YesNVIDIA G-Sync™-Ready
-YesNVIDIA GameStream™-Ready
-YesGeForce ShadowPlay™
-2.0NVIDIA GPU Boost™
-YesDynamic Super Resolution
-YesMFAA
-YesNVIDIA GameWorks™
-12 API with Feature Level 12.1Microsoft DirectX
-4.5OpenGL
-YesCUDA
-PCI Express 3.0 Bus Support
-Windows 8 & 8.1, Windows 7, Windows Vista, Linux, FreeBSD x86OS Certification
-Display Support:
+GTX TITAN X Technology Support: | -
+---|---
+NVIDIA SLI® Ready | Yes (4-way)
+NVIDIA G-Sync™-Ready | Yes
+NVIDIA GameStream™-Ready | Yes
+GeForce ShadowPlay™ | Yes
+NVIDIA GPU Boost™ | 2.0
+Dynamic Super Resolution | Yes
+MFAA | Yes
+NVIDIA GameWorks™ | Yes
+Microsoft DirectX | 12 API with Feature Level 12.1
+OpenGL | 4.5
+CUDA | Yes
+Bus Support | PCI Express 3.0 
+OS Certification | Windows 8 & 8.1, Windows 7, Windows Vista, Linux, FreeBSD x86
+
+Display Support: | -
+---|---
 5120x3200Maximum Digital Resolution*
 2048x1536Maximum VGA Resolution
 Dual Link DVI-I, HDMI 2.0, 3x DisplayPort 1.2 Standard Display Connectors
