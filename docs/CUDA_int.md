@@ -9,7 +9,7 @@
 - 스레드 블록의 스레드들은 32개의 스레드로 구성된 워프(Warp) 단위로 실행된다.
 - 즉, 워프는 SM에서 실행의 단위가 된다.
 
-## CUDA Runtime API
+## Runtime API
 ```c
 __host__cudaError_t cudaGetDeviceProperties(cudaDeviceProp *prop, int device)
 ```
@@ -17,14 +17,14 @@ __host__cudaError_t cudaGetDeviceProperties(cudaDeviceProp *prop, int device)
 > - `prop` : 지정된 디바이스에 대한 속성
 > - `device` : 속성을 얻고자 하는 디바이스 번호
 
-## CUDA Kernel Function
+## Kernel Function
 Function | Run on | Call from| Return type
 :-:|:-:|:-|:-:
 `__global__` | Device | Host <br> Device in up to Compute capability 3.5 | void
 `__device__` | Device | Device <br> 그리드와 블록을 지정할 수 없다. |
 `__host__` | Host | Host | optional
 
-## CUDA Kernel 호출
+## Kernel 호출
 ```c
 function_name<<<grid,block>>>(argument list);
 ```
