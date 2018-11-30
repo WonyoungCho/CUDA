@@ -29,6 +29,7 @@ nvcc -arch=sm_70 hello.cu -o a
 #SBATCH --gres=gpu:1
 srun ./a
 ```
+
 - **Running**
 ```sh
 $ sbatch run.sh
