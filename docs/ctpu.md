@@ -73,5 +73,6 @@ Graphics Card Power (W) | 250 W
 Recommended System Power (W)** |600 W
 Supplementary Power Connectors | 6-pin + 8-pin
 
-* 5120x3200 at 60Hz with dual DisplayPort connectors.
-** Recommendation is made based on PC configured with an Intel Core i7 3.2 GHz processor. Pre-built system may require less power depending on system configuration.
+`* 5120x3200 at 60Hz with dual DisplayPort connectors.`
+
+`** Recommendation is made based on PC configured with an Intel Core i7 3.2 GHz processor. Pre-built system may require less power depending on system configuration.`
