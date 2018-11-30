@@ -67,6 +67,54 @@ runtimeVersion : 9000
         Maximum sizes of each dimension of a grid:      2147483647 x 65535 x 65535
 ```
 
+# Login
+```sh
+======================== KAT User Notification ========================
+ * Any unauthorized attempts to use/access the system can be
+   investigated and prosecuted by the related Act
+
+ * Beta service
+  - 2017-10-16 09:00 ~ 2017-12-15 18:00 (1st)
+  - 2018-05-02 10:00 ~ 2018-07-31 15:00 (2nd)
+  - 2018-08-01 10:00 ~ 2018-11-30 17:00 (3rd)
+
+ * Hardware
+  - tesla[01-30] HOST: Intel Xeon Ivy Bridge (E5-2670) 2 socket,128GB DDR3
+  - bigmem: Intel Xeon Westmere (E7-4870) 4 socket,512GB DDR3
+  - bigmem2: Intel Xeon Broadwell (E7-4830) 4 socket,768GB DDR4
+  - skl[01-10]: Intel Xeon Skylake (Gold 6140) 2 socket,192GB DDR4
+
+ * Software Stack
+  - tesla[01-30],bigmem: Centos 6.4,MLNX-OFED 2.2,Lustre 1.8.9
+  - bigmem2,skl[01-10]: Centos 6.6,MLNX-OFED 2.4,Lustre 1.8.9
+
+ * Login, Debugging Node
+  - Login: login-tesla[01-02]
+  - Debugging: skl10
+
+ * Policy on User Jobs
+  - Wall Time Clock Limit: 24h (common)
+                   |Max Running| Max Active Jobs |Max Available|   GPU
+                   |   Jobs    |(running+waiting)|     Gpus    |
+    - - - - - - - -|- - - - - -| - - - - - - - - |- - - - - - -|- - - - -
+  - tesla[01-17]   |     4     |        4        |      5      | K40  1EA
+  - tesla[18-28]   |     8     |        8        |     16      | V100 2EA
+  - tesla[29,30]   |     2     |        2        |      2      | V100 1EA
+  - bigmem,bigmem2 |     2     |        4        |      5      |    -
+  - skl[01-09]     |     2     |        4        |      5      |    -
+
+ * Preventive Maintenance
+  - 2018-09-12 09:00 ~ 21:00
+  - 2018-10-11 09:00 ~ 21:00
+
+ * Failures of Shared Filesystem
+  - 2018-09-27 11:00 ~ 17:30 (/scratch2)
+
+ * Failures of Login/Debugging nodes
+
+ * More detail can be found on http://helpdesk.ksc.re.kr
+```
+
 # Partition
 ```sh
 $ sinfo
