@@ -26,9 +26,7 @@ CUDA Cores | 3072
 Base Clock (MHz) | 1000
 Boost Clock (MHz) | 1075
 Texture Fill Rate (GigaTexels/sec) | 192
-
-GTX TITAN X Memory Specs: | -
----|---
+**GTX TITAN X Memory Specs:** | -
 Memory Clock | 7.0 Gbps
 Standard Memory Config | 12 GB
 Memory Interface | GDDR5
@@ -76,3 +74,5 @@ Supplementary Power Connectors | 6-pin + 8-pin
 `* 5120x3200 at 60Hz with dual DisplayPort connectors.`
 
 `** Recommendation is made based on PC configured with an Intel Core i7 3.2 GHz processor. Pre-built system may require less power depending on system configuration.`
+
+<https://www.geforce.com/hardware/desktop-gpus/geforce-gtx-titan-x/specifications>
