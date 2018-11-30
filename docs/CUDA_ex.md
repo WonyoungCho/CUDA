@@ -805,3 +805,314 @@ Device "Tesla V100-PCIE-16GB (0)"
     Kernel: reduceInterleaved(float*, float*, unsigned int)
           1                             inst_per_warp                     Instructions per warp  132.875000  132.875000  132.875000
 ```
+
+# Vector produc with Reduction
+
+```c
+#include <cuda_runtime.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <sys/time.h>
+#define N       (1024*1024*16)
+
+__device__ int tmpC[N];
+
+inline void CHECK(const cudaError_t error)
+{
+        if(error != cudaSuccess)
+        {
+                fprintf(stderr, "Error: %s:%d, ", __FILE__, __LINE__);
+                fprintf(stderr, "code: %d, reason: %s\n", error, cudaGetErrorString(error));
+                exit(1);
+        }
+}
+double cpuTimer()
+{
+        struct timeval tp;
+        gettimeofday(&tp, NULL);
+        return ((double)tp.tv_sec + (double)tp.tv_usec*1.e-6);
+}
+void initialData(int *arr, int size)
+{
+        float tmp;
+        time_t t;
+        srand((unsigned)time(&t));  // seed
+        for(int i=0;i<size;i++){
+                tmp=(float)(10.0f*rand()/RAND_MAX);
+                arr[i]=(int)(tmp);
+        }
+}
+int VecProdOnCPU(int *A, int *B, int const size)
+{
+        int tmp=0;
+        for(int i=0;i<size;i++)
+                tmp += A[i]*B[i];
+        return tmp;
+}
+
+__global__ void VecProdOnGPU(int *A, int *B, int *g_odata, int const size)
+{
+        unsigned int tid=threadIdx.x;
+        unsigned int idx=blockIdx.x*blockDim.x+threadIdx.x;
+
+        tmpC[idx]=A[idx]*B[idx];
+        __syncthreads();
+        int *idata=tmpC+blockIdx.x*blockDim.x;
+
+        // boundary check
+        if(idx>=size) return;
+
+        // in-place reduction in global mem
+        for(int stride=blockDim.x/2;stride>0;stride>>=1)
+        {
+                if(tid<stride)
+                        idata[tid]+=idata[tid+stride];
+                __syncthreads();
+        }
+        // write result for this block to global mem
+        if(tid==0) g_odata[blockIdx.x]=idata[0];
+}
+
+int main(void)
+{
+        int cpu_result, gpu_result;
+
+        // initialize
+        int size = N;
+        printf("vector length : %d\n", size);
+
+        // execution configuration
+        int blocksize=512;
+        dim3 block(blocksize, 1);
+        dim3 grid((size+block.x-1)/block.x,1);
+
+        // allocate host memory
+        size_t bytes=size*sizeof(int);
+        int *h_A = (int*)malloc(bytes);
+        int *h_B = (int*)malloc(bytes);
+        int *tmp_A = (int*)malloc(bytes);
+        int *tmp_B = (int*)malloc(bytes);
+        int *h_AB=(int*)malloc(grid.x*sizeof(int));
+
+        // allocate device memory
+        int *d_A, *d_B, *d_AB;
+        cudaMalloc((void**)&d_A, bytes);
+        cudaMalloc((void**)&d_B, bytes);
+        cudaMalloc((void**)&d_AB, grid.x*sizeof(int));
+
+        initialData(h_A, size);
+        initialData(h_B, size);
+        memcpy(tmp_A, h_A, bytes);
+        memcpy(tmp_B, h_B, bytes);
+
+        cudaMemcpy(d_A, h_A, bytes, cudaMemcpyHostToDevice);
+        cudaMemcpy(d_B, h_B, bytes, cudaMemcpyHostToDevice);
+
+        // cpu calculate
+        double iStart=cpuTimer();
+        cpu_result=VecProdOnCPU(tmp_A, tmp_B, size);
+        double ElapsedTime=cpuTimer()-iStart;
+        printf(" Result on CPU : %d, Elapsed Time %f sec\n", cpu_result,ElapsedTime);
+
+        /********** GPU ***********/
+        cudaEvent_t start, stop;
+        cudaEventCreate(&start);
+        cudaEventCreate(&stop);
+        cudaEventRecord(start);
+        VecProdOnGPU<<<grid, block>>>(d_A,d_B,d_AB,size);
+        cudaDeviceSynchronize();
+        cudaEventRecord(stop);
+        cudaEventSynchronize(stop);
+        float ETime;
+        cudaEventElapsedTime(&ETime, start, stop);
+        cudaMemcpy(h_AB, d_AB, grid.x*sizeof(int), cudaMemcpyDeviceToHost);
+        gpu_result=0;
+        for(int i=0;i<grid.x;i++) gpu_result += h_AB[i];
+        printf(" Result on GPU : %d, Elapsed Time %f sec\n", gpu_result,ETime*1e-3f);
+
+        cudaEventDestroy(start),  cudaEventDestroy(stop);
+
+        free(h_A), free(h_B), free(tmp_A), free(tmp_B), free(h_AB);
+        cudaFree(d_A), cudaFree(d_B), cudaFree(d_AB);
+
+        return 0;
+}
+```
+```sh
+ vector length : 16777216
+ Result on CPU : 478182126, Elapsed Time 0.056005 sec
+ Result on GPU : 478182126, Elapsed Time 0.000441 sec
+```
+
+# Using shared memory
+```c
+#include <stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <sys/time.h>
+inline void CHECK(const cudaError_t error)
+{
+        if(error !=cudaSuccess)
+        {
+                fprintf(stderr, "Error: %s:%d, ", __FILE__,__LINE__);
+                fprintf(stderr, "code: %d, reason: %s\n", error, cudaGetErrorString(error));
+                exit(1);
+        }
+}
+double cpuTimer()
+{
+        struct timeval tp;
+        gettimeofday(&tp, NULL);
+        return((double)tp.tv_sec + (double)tp.tv_usec*1.e-6);
+}
+void initialData(float *arr, const int size)
+{
+        time_t t;
+        srand((unsigned int)time(&t));
+        for(int i=0;i<size;i++)
+                arr[i]=(float)(rand())/RAND_MAX;
+}
+void checkResult(float *host, float *gpu, const int N)
+{
+        double epsilon = 1.0e-8;
+        bool match=1;
+        for(int i=0;i<N;i++)
+        {
+                if(abs(host[i]-gpu[i])>epsilon)
+                {
+                        match=0;
+                        printf("Matrices do not match!\n");
+                        printf("host %10.7f, gpu %10.7f at current %d\n", host[i], gpu[i], i);
+                        break;
+                }
+        }
+        if(match)printf("Matrices match.\n");
+}
+void MatMulOnCPU(float *A, float *B, float *C, const int nrows, const int ncols)
+{
+        float sum;
+        for(int i=0;i<nrows;i++)
+        {
+                for(int j=0;j<nrows;j++)
+                {
+                        sum = 0.0f;
+                        for(int k=0;k<ncols;k++)
+                        {
+                                sum += A[i*ncols+k]*B[k*nrows+j];
+                        }
+                        C[i*nrows+j]=sum;
+                }
+        }
+}
+template <int BLOCK_SIZE> __global__ void
+matrixMulCUDA(float *C, float *A, float *B, int wA, int wB)
+{
+        // block index
+        int bx = blockIdx.x;
+        int by = blockIdx.y;
+
+        // Thread idx
+        int tx = threadIdx.x;
+        int ty = threadIdx.y;
+
+        // Index of the first sub-matrix of A processed by the block
+        int aBegin = wA*BLOCK_SIZE*by;
+
+        // Index of the last sub-matrix of A processed by the block
+        int aEnd = aBegin +wA-1;
+
+        // Step size used to iterate through the sub-matrices of A
+        int aStep = BLOCK_SIZE;
+
+        // Index of the first-submatrix of B processed by the block
+        int bBegin = BLOCK_SIZE*bx;
+        // Step size used to interate through the sub-matrix of B
+        int bStep = BLOCK_SIZE*wB;
+
+        // Csub is used to store the element of the block sub-matrix
+        // that is compute dby the thread;
+        float Csub = 0.0f;
+
+        // Loop over all the sub-matrices of A and B
+        // required to compute the block sub-matrix
+        for(int a = aBegin, b=bBegin; a<=aEnd;  a+=aStep, b+=bStep)
+        {
+                __shared__ float As[BLOCK_SIZE][BLOCK_SIZE];
+                __shared__ float Bs[BLOCK_SIZE][BLOCK_SIZE];
+
+                As[ty][tx]=A[a+wA*ty+tx];
+                Bs[ty][tx]=B[b+wB*ty+tx];
+                __syncthreads();
+
+                // Multiply the two matrices together;
+                // each thread computes on element of the blocksub-matrix
+#pragma unroll
+                for(int k=0;k<BLOCK_SIZE;++k)
+                        Csub += As[ty][k]*Bs[k][tx];
+
+                // Synchronize to make sure that the preceding
+                // computation is done before loading two new
+                // sub-matrices of A and B in the next iteration
+                __syncthreads();
+        }
+        int c = wB*BLOCK_SIZE*by + BLOCK_SIZE*bx;
+        C[c+wB*ty + tx] =Csub;
+}
+
+int main()
+{
+        double Start, ElapsedTime;
+        int block_size=32;
+        int nrows=10*block_size;
+        int ncols=20*block_size;
+        float *MatA, *MatB, *MatC, *gpu_MatC;
+        float *d_MatA, *d_MatB, *d_MatC;
+
+        int size = nrows*ncols;
+        /********** ON CPU **************/
+        MatA=(float*)malloc(size*sizeof(float));
+        MatB=(float*)malloc(size*sizeof(float));
+        MatC=(float*)malloc(nrows*nrows*sizeof(float));
+        gpu_MatC=(float*)malloc(nrows*nrows*sizeof(float));
+
+        initialData(MatA, size);
+        initialData(MatB, size);
+
+        Start=cpuTimer();
+        MatMulOnCPU(MatA, MatB, MatC, nrows, ncols);
+        ElapsedTime=cpuTimer()-Start;
+        printf("Elapsed Time on CPU: %f\n",ElapsedTime);
+        /********************************/
+
+        /********** ON GPU *****************/
+        cudaMalloc((void**)&d_MatA, size*sizeof(float));
+        cudaMalloc((void**)&d_MatB, size*sizeof(float));
+        cudaMalloc((void**)&d_MatC, nrows*nrows*sizeof(float));
+
+        Start=cpuTimer();
+        // copy host memory to device
+        cudaMemcpy(d_MatA, MatA, size*sizeof(float), cudaMemcpyHostToDevice);
+        cudaMemcpy(d_MatB, MatB, size*sizeof(float), cudaMemcpyHostToDevice);
+
+        dim3 block(block_size, block_size);     // sub-matrix dimension
+        dim3 grid((nrows+block.x-1)/block.x, (nrows+block.y-1)/block.y);        // submatrix dimension of C
+        matrixMulCUDA<32><<<grid,block>>>(d_MatC, d_MatA, d_MatB, ncols, nrows);
+        cudaMemcpy(gpu_MatC,d_MatC, nrows*nrows*sizeof(float), cudaMemcpyDeviceToHost);
+        ElapsedTime=cpuTimer()-Start;
+        printf("Elapsed Time on GPU : %f\n",ElapsedTime);
+
+        checkResult(MatC, gpu_MatC,nrows*nrows);
+
+        free(MatA), free(MatB), free(MatC),     free(gpu_MatC);
+        cudaFree(d_MatA),       cudaFree(d_MatB),       cudaFree(d_MatC);
+        cudaDeviceReset();
+        return 0;
+}
+```
+```sh
+Elapsed Time on CPU: 0.335707
+Elapsed Time on GPU : 0.002112
+Matrices match.
+```
