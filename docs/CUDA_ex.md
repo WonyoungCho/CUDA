@@ -373,3 +373,176 @@ Elapsed Time in AddVecOnHost : 0.066860
 Elapsed Time in AddVecOnGPU<<<65536, 256>>> : 0.355040 ms
 Vectors match.
 ```
+
+# Matrix multiplication
+```c
+#include <cuda_runtime.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <sys/time.h>
+
+inline void CHECK(const cudaError_t error)
+{
+        if(error !=cudaSuccess)
+        {
+                fprintf(stderr, "Error: %s:%d, ",__FILE__,__LINE__);
+                fprintf(stderr, "code: %d, reason: %s\n", error, cudaGetErrorString(error));
+                exit(1);
+        }
+}
+double cpuTimer()
+{
+        struct timeval tp;
+        gettimeofday(&tp, NULL);
+        return((double)tp.tv_sec + (double)tp.tv_usec*1.e-6);
+}
+
+void initialData(float *arr, const int size)
+{
+        time_t t;
+        srand((unsigned)time(&t));
+        for(int i=0;i<size;i++)
+                arr[i]= (float)(rand())/RAND_MAX;
+}
+void MatMulOnCPU(float *A, float *B, float *C, const int Arows, const int Acols, const int Bcols)
+{
+        float sum;
+        for(int i=0;i<Arows;i++)
+        {
+                for(int j=0;j<Bcols;j++)
+                {
+                        sum = 0.0f;
+                        for(int k=0;k<Acols;k++)
+                        {
+                                sum += A[i*Acols+k]*B[k*Bcols+j];
+                        }
+                        C[i*Bcols+j]=sum;
+                }
+        }
+}
+__global__ void MatMultOnGPU(float *A, float *B, float *C, const int Arows, const int Acols, const int Bcols)
+{
+        int tx = blockDim.x*blockIdx.x + threadIdx.x;   // col of C
+        int ty = blockDim.y*blockIdx.y + threadIdx.y;   // row of C
+        int tid = ty*Bcols+tx;
+
+
+        float sum=0.0f;
+        if(tx < Bcols && ty <Arows )
+        {
+                for(int i=0;i<Acols;i++)
+                {
+                        sum += A[ty*Acols + i]*B[i*Bcols+tx];
+                }
+                C[tid]=sum;
+        }
+}
+
+void checkResult(float *host, float *gpu, const int N)
+{
+        double epsilon = 1.0e-8;
+        bool match = 1;
+        for(int i=0;i<N;i++)
+        {
+                if(abs(host[i]-gpu[i])>epsilon)
+                {
+                        match = 0;
+                        printf("Matrices do not match!\n");
+                        printf("host %10.7f, gpu %10.7f at current %d\n", host[i], gpu[i], i);
+                        break;
+                }
+        }
+        if(match)printf("Matrices match.\n");
+}
+int main(int argc, char **argv)
+{
+        double Start, ElapsedTime;
+        float ETime;
+        float *MatA, *MatB, *MatC, *gpu_MatC;
+        int Arows=300, Acols=200, Bcols=400;
+        int threads_x=32, threads_y=32;
+        if(argc>1) Arows=atoi(argv[1]);
+        if(argc>2) Acols=atoi(argv[2]);
+        if(argc>3) Bcols=atoi(argv[3]);
+        if(argc>4) threads_x = atoi(argv[4]);
+        if(argc>5) threads_y = atoi(argv[5]);
+        /************ ON CPU **************/
+        MatA=(float*)malloc(Arows*Acols*sizeof(float));
+        MatB=(float*)malloc(Acols*Bcols*sizeof(float));
+        MatC=(float*)malloc(Arows*Bcols*sizeof(float));
+        gpu_MatC=(float*)malloc(Arows*Bcols*sizeof(float));
+
+        initialData(MatA, Arows*Acols);
+        initialData(MatB, Acols*Bcols);
+
+        Start=cpuTimer();
+        MatMulOnCPU(MatA, MatB, MatC, Arows, Acols, Bcols);
+        ElapsedTime=cpuTimer()-Start;
+        printf("Elapsed Time on CPU : %f sec\n",ElapsedTime);
+        /**********************************/
+
+        /************ ON GPU **************/
+        float *d_MatA, *d_MatB, *d_MatC;
+        CHECK(cudaMalloc((float**)&d_MatA, Arows*Acols*sizeof(float)));
+        CHECK(cudaMalloc((float**)&d_MatB, Acols*Bcols*sizeof(float)));
+        CHECK(cudaMalloc((float**)&d_MatC, Arows*Bcols*sizeof(float)));
+
+        // create two events
+        cudaEvent_t start, stop;
+        cudaEventCreate(&start);
+        cudaEventCreate(&stop);
+
+        cudaEventRecord(start);
+        CHECK(cudaMemcpy(d_MatA,MatA, Arows*Acols*sizeof(float),cudaMemcpyHostToDevice));
+        CHECK(cudaMemcpy(d_MatB,MatB, Acols*Bcols*sizeof(float),cudaMemcpyHostToDevice));
+        dim3 block(threads_x,threads_y,1);
+        dim3 grid((Bcols+block.x-1)/block.x, (Arows+block.y-1)/block.y, 1);
+        MatMultOnGPU<<<grid, block>>>(d_MatA, d_MatB, d_MatC, Arows, Acols, Bcols);
+        CHECK(cudaMemcpy(gpu_MatC, d_MatC, Arows*Bcols*sizeof(float), cudaMemcpyDeviceToHost));
+        cudaEventRecord(stop);
+        cudaEventSynchronize(stop);
+        cudaEventElapsedTime(&ETime, start, stop);
+        printf("Elapsed Time on GPU : %f sec\n",ETime*1e-3);
+        /**********************************/
+        checkResult(MatC, gpu_MatC, Arows*Bcols);
+
+        free(MatA),     free(MatB),     free(MatC),     free(gpu_MatC);
+        CHECK(cudaFree(d_MatA)), CHECK(cudaFree(d_MatB)), CHECK(cudaFree(d_MatC));
+
+        CHECK(cudaDeviceReset());
+        return 0;
+}
+```
+```sh
+$ nvcc -arch=sm_70 -fmad=false -o a MatMul.cu
+```
+```sh
+$ nvprof ./a
+Elapsed Time on CPU : 0.113034 sec
+==19259== NVPROF is profiling process 19259, command: ./a
+Elapsed Time on GPU : 0.000876 sec
+Matrices match.
+==19259== Profiling application: ./a
+==19259== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   40.71%  51.072us         2  25.536us  22.272us  28.800us  [CUDA memcpy HtoD]
+                   29.95%  37.567us         1  37.567us  37.567us  37.567us  [CUDA memcpy DtoH]
+                   29.34%  36.799us         1  36.799us  36.799us  36.799us  MatMultOnGPU(float*, float*, float*, int, int, int)
+      API calls:   66.67%  579.62ms         3  193.21ms  8.0520us  579.15ms  cudaMalloc
+                   32.99%  286.81ms         1  286.81ms  286.81ms  286.81ms  cudaDeviceReset
+                    0.11%  977.90us       188  5.2010us     199ns  197.38us  cuDeviceGetAttribute
+                    0.08%  737.75us         3  245.92us  124.43us  470.33us  cudaMemcpy
+                    0.07%  605.73us         2  302.86us  302.10us  303.62us  cuDeviceTotalMem
+                    0.05%  409.69us         3  136.56us  15.931us  226.15us  cudaFree
+                    0.01%  89.901us         1  89.901us  89.901us  89.901us  cudaLaunch
+                    0.01%  88.392us         2  44.196us  39.750us  48.642us  cuDeviceGetName
+                    0.00%  23.613us         2  11.806us  6.8740us  16.739us  cudaEventRecord
+                    0.00%  18.100us         6  3.0160us     203ns  16.462us  cudaSetupArgument
+                    0.00%  14.179us         2  7.0890us  1.3900us  12.789us  cudaEventCreate
+                    0.00%  12.035us         1  12.035us  12.035us  12.035us  cudaEventElapsedTime
+                    0.00%  5.6540us         1  5.6540us  5.6540us  5.6540us  cudaEventSynchronize
+                    0.00%  4.3410us         3  1.4470us     255ns  3.3950us  cuDeviceGetCount
+                    0.00%  2.2400us         4     560ns     239ns     998ns  cuDeviceGet
+                    0.00%  2.1440us         1  2.1440us  2.1440us  2.1440us  cudaConfigureCall
+```
