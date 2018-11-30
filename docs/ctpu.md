@@ -20,7 +20,7 @@ runtimeVersion : 10000
 	Maximum sizes of each dimension of a grid:	2147483647 x 65535 x 65535
 ```
 
-GTX TITAN X Engine Specs: | 
+GTX TITAN X Engine Specs: | -
 ---|---
 CUDA Cores | 3072
 Base Clock (MHz) | 1000
