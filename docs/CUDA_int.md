@@ -17,6 +17,17 @@ __host__cudaError_t cudaGetDeviceProperties(cudaDeviceProp *prop, int device)
 > - `prop` : 지정된 디바이스에 대한 속성
 > - `device` : 속성을 얻고자 하는 디바이스 번호
 
+```c
+__host____device__cudaErro_t cudaMalloc(void **devPtr, size_t_size)
+```
+> - `devPtr` :  디바이스 메모리에 할당될 포인터
+> - `size` : 요청되는 byte 단위의 할당크기
+
+```c
+__host____device__cudaErro_t cudaFree(void *devPtr)
+```
+> - `devPtr` : 해제될 메모리에 대한 디바이스 포인터
+
 ## Kernel Function
 Function | Run on | Call from| Return type
 :-:|:-:|:-|:-:
