@@ -21,7 +21,7 @@ runtimeVersion : 10000
 ```
 
 GTX TITAN X Engine Specs: | 
--|-
+---|---
 CUDA Cores | 3072
 Base Clock (MHz) | 1000
 Boost Clock (MHz) | 1075
