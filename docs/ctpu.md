@@ -28,6 +28,7 @@ Boost Clock (MHz) | 1075
 Texture Fill Rate (GigaTexels/sec) | 192
 
 GTX TITAN X Memory Specs: | -
+---|---
 Memory Clock | 7.0 Gbps
 Standard Memory Config | 12 GB
 Memory Interface | GDDR5
@@ -52,18 +53,25 @@ OS Certification | Windows 8 & 8.1, Windows 7, Windows Vista, Linux, FreeBSD x86
 
 Display Support: | -
 ---|---
-5120x3200Maximum Digital Resolution*
-2048x1536Maximum VGA Resolution
-Dual Link DVI-I, HDMI 2.0, 3x DisplayPort 1.2 Standard Display Connectors
-4 displaysMulti Monitor
-YesHDCP
-InternalAudio Input for HDMI
-GTX TITAN X Graphics Card Dimensions:
-4.376 inchesHeight
-10.5 inchesLength
-Dual-widthWidth
-Thermal and Power Specs:
-91 CMaximum GPU Tempurature (in C)
-250 WGraphics Card Power (W)
-600 WRecommended System Power (W)**
-6-pin + 8-pin
+Maximum Digital Resolution* | 5120x3200
+Maximum VGA Resolution | 2048x1536
+Standard Display Connectors | Dual Link DVI-I, HDMI 2.0, 3x DisplayPort 1.2 
+Multi Monitor | 4 displays
+HDCP | Yes
+Audio Input for HDMI | Internal
+
+GTX TITAN X Graphics Card Dimensions: | -
+---|---
+Height | 4.376 inches
+Length | 10.5 inches
+Width | Dual-width
+
+Thermal and Power Specs: | -
+---|---
+Maximum GPU Tempurature (in C) | 91 C
+Graphics Card Power (W) | 250 W
+Recommended System Power (W)** |600 W
+Supplementary Power Connectors | 6-pin + 8-pin
+
+* 5120x3200 at 60Hz with dual DisplayPort connectors.
+** Recommendation is made based on PC configured with an Intel Core i7 3.2 GHz processor. Pre-built system may require less power depending on system configuration.
