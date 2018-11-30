@@ -593,3 +593,32 @@ ActiveWarps : 32
 MaxWarps : 64
 Occupancy = 50.00 %
 ```
+
+- **Example 2**
+```c
+#include <stdio.h>
+#include <cuda_runtime.h>
+// Device code
+__global__ void MyKernel(int *array, int arrayCount)
+{
+   int idx = threadIdx.x + blockIdx.x * blockDim.x;
+   if (idx < arrayCount) {
+      array[idx] *= array[idx];
+   }
+}
+// Host code
+int main(int argc, char **argv)
+{
+   int blockSize;
+   int minGridSize;
+   int arrayCount=1000;
+   cudaOccupancyMaxPotentialBlockSize(&minGridSize,&blockSize,(void*)MyKernel,0,arrayCount);
+   printf("minGridSize : %d \n",minGridSize);
+   printf("blockSize : %d\n",blockSize);
+   return 0;
+}
+```
+```sh
+minGridSize : 320
+blockSize : 512
+```
