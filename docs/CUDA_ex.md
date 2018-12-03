@@ -185,7 +185,7 @@ int main()
         Print<<<1,5>>>(d2_A);
         cudaDeviceSynchronize();
 
-        // Data Transfer : Device 2 -> Host
+        // Data Transfer : Device 1 -> Host
         cudaMemcpy(h_B,d2_A,size*sizeof(int),cudaMemcpyDeviceToHost);
 //      cudaMemcpy(h_B,d2_A,size*sizeof(int),cudaMemcpyDefault);
         for(i=0;i<size;i++) printf("h_B[%d]=%d\n",i,h_B[i]);
