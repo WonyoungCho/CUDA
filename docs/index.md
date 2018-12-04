@@ -23,6 +23,15 @@ alias lg='sacct'
 - <https://linuxconfig.org/how-to-install-the-nvidia-drivers-on-centos-7-linux>
 - <https://linuxconfig.org/how-to-install-nvidia-cuda-toolkit-on-centos-7-linux>
 
+# If warning appears
+```sh
+Error: You apear to be running an X server; please exit X before installing. ...
+```
+```sh
+$ ps ax | grep X
+$ sudo kill -9 PID_number
+```
+
 ## Compute Capability x.x
 ```sh
 nvcc -arch=sm_xx
