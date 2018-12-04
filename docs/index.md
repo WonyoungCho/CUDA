@@ -23,7 +23,7 @@ alias lg='sacct'
 - <https://linuxconfig.org/how-to-install-the-nvidia-drivers-on-centos-7-linux>
 - <https://linuxconfig.org/how-to-install-nvidia-cuda-toolkit-on-centos-7-linux>
 
-# If warning is appeared duting `bash NVIDIA-Linux-x86_64-*`
+# If warning is appeared during `bash NVIDIA-Linux-x86_64-*`
 ```sh
 Error: You apear to be running an X server; please exit X before installing. ...
 ```
