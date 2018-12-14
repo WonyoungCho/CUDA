@@ -3,6 +3,12 @@
 
 <a href="https://cuda.readthedocs.io" target="_blank"> https://cuda.readthedocs.io </a>
 
+---
+
+**Wonyoung Cho**.
+
+<bourbaki10@gmail.com>
+
 ## Module
 ```sh
 Currently Loaded Modulefiles:
