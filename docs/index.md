@@ -9,12 +9,6 @@
 
 <bourbaki10@gmail.com>
 
-## Module
-```sh
-Currently Loaded Modulefiles:
-  1) compiler/gcc-4.9.4   2) cuda/9.0
-```
-
 # alias
 ```bash
 alias cs='cp /home01/kedu05/ex/sun.sh ./'
