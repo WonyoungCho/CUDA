@@ -11,10 +11,10 @@
 
 ## Structure
 아래와 같은 하위 관계를 가지고 있다.
-- Device
-- Grid
-- Block
-- Thread
+> - Device
+> - Grid
+> - Block
+> - Thread
 
 ## Runtime API
 ```c
