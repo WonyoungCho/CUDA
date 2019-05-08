@@ -11,8 +11,8 @@
 
 ## Structure
 아래와 같은 하위 관계를 가지고 있다.
-> - Device
-> - Grid
+> - Device : GPU를 가리킨다.
+> - Grid : Device가 
 > - Block
 > - Thread
 
@@ -45,10 +45,10 @@ Function | Run on | Call from| Return type
 
 ## Kernel 호출
 ```c
-function_name<<<grid,block>>>(argument list);
+function_name<<<nBlock,nThread>>>(argument list);
 ```
-> - `grid` : 블록의 개수인 그리드의 크기
-> - `block` : 각 블록에서 스레드의 개수인 블록의 크기
+> - `nBlock` : 블록의 개수
+> - `nThread` : 각 블록에서 스레드의 개수
 
 
 ## C로 작성된 파일을 Cuda로 compile할 때
