@@ -11,7 +11,7 @@
 
 
 ## Structure
-아래와 같은  관계를 가지고 있다.
+아래와 같은 계층 관계를 가지고 있다.
 > - Device > Grid > Block > Thread
 
 ## Runtime API
