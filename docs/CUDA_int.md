@@ -14,6 +14,7 @@
 __host__cudaError_t cudaGetDeviceProperties(cudaDeviceProp *prop, int device)
 ```
 > : 지정된 디바이스의 정보를 반환
+
 > - `prop` : 지정된 디바이스에 대한 속성
 > - `device` : 속성을 얻고자 하는 디바이스 번호
 
