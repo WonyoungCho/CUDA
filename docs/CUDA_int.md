@@ -11,11 +11,8 @@
 
 
 ## Structure
-아래와 같은 하위 관계를 가지고 있다.
-> - Device : GPU를 가리킨다.
-> - Grid : Block의 모임.
-> - Block : Thread의 모임.
-> - Thread : 프로세스 실행의 단위
+아래와 같은  관계를 가지고 있다.
+> - Device > Grid > Block > Thread
 
 ## Runtime API
 ```c
