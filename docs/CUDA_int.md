@@ -8,7 +8,8 @@
 - 그리드는 많은 스레드 블록(Block)으로 구성된다.
 - 스레드 블록은 스레드들의 묶음이다. (CUDA core = thread)
 - 스레드 블록의 스레드들은 32개의 스레드로 구성된 워프(Warp) 단위로 실행된다.
-- 즉, 워프는 SM에서 실행의 단위가 된다. (Stream Multiprocessor(SM) : GPU의 기본단위)
+- 즉, 워프는 SM에서 실행의 단위가 된다. (Stream Multiprocessor(SM))
+- SM은 8개의 SP로 구성되어 있다. (Scalar Processor(SP) : GPU의 기본단위)
 
 
 ## Structure
