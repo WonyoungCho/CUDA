@@ -9,6 +9,13 @@
 - 스레드 블록의 스레드들은 32개의 스레드로 구성된 워프(Warp) 단위로 실행된다.
 - 즉, 워프는 SM에서 실행의 단위가 된다. (Stream Multiprocessor(SM) : GPU의 기본단위)
 
+## Structure
+아래와 같은 하위 관계를 가지고 있다.
+- Device
+- Grid
+- Block
+- Thread
+
 ## Runtime API
 ```c
 __host__cudaError_t cudaGetDeviceProperties(cudaDeviceProp *prop, int device)
