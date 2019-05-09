@@ -9,7 +9,7 @@
 - 스레드 블록은 스레드들의 묶음이다. (CUDA core = thread)
 - SP(Scalar Processor: GPU의 기본단위)는 4개의 스레드로 구성되어 있다.
 - SM(Stream Multiprocessor)은 8개의 SP로 구성되어 있다.
-- SM의 32개의 스레드를 워프(Warp)라는 단위로 정의하며, 실행의 가작 장은 단위가 되다.
+- SM의 32개의 스레드를 워프(Warp)라는 단위로 정의하며, 실행의 가작 장은 단위가 다.
 
 ## Structure
 아래와 같은 계층 관계를 가지고 있다.
