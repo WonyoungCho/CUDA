@@ -15,6 +15,11 @@
 ## Structure
 아래와 같은 계층 관계를 가지고 있다.
 > - Device > Grid > Block > Thread
+- gridDim : 그리드 내 블록의 수.
+- blockIdx : 몇 번째 블록인지 나타내는 인덱스.
+- blockDim : 블록 내 스레드의 수.
+- threadIdx : 몇 번째 스레드인지 나타내는 인덱스.
+
 
 ## Runtime API
 ```c
