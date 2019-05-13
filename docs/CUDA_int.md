@@ -22,9 +22,7 @@
 
 
 **ex) GPU에서 몇 번째 스레드인지 global index를 구하는 방법**
-```
-int idx = blockDim.x * blockIdx.x + threadIdx.x
-```
+![ex_screenshot](./img/cuda_indexing.png)
 
 ## Runtime API
 ```c
