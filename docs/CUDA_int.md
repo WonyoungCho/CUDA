@@ -22,8 +22,9 @@
 
 
 **ex) global index를 구하는 방법**
-
-
+```
+int idx = blockDim.x * blockIdx.x + threadIdx.x
+```
 
 ## Runtime API
 ```c
