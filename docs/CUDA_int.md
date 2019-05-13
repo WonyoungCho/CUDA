@@ -12,9 +12,14 @@
 - SM(Stream Multiprocessor)은 8개의 SP로 구성되어 있다.
 - SM의 32개의 스레드를 워프(Warp)라는 단위로 정의하며, 실행의 가작 장은 단위가 된다.
 
+Software | Hardware
+Thread | CUDA core
+Thread Block | SM
+Grid | Device
+
 ## Structure
 아래와 같은 계층 관계를 가지고 있다.
-> - Device > Grid > Block > Thread
+> - Grid > Block > Thread
 - gridDim : 한 그리드 내 블록의 수.
 - blockIdx : 몇 번째 블록인지 나타내는 인덱스.
 - blockDim : 한 블록 내 스레드의 수.
