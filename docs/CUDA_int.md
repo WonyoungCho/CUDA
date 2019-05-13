@@ -21,7 +21,7 @@
 - threadIdx : 몇 번째 스레드인지 나타내는 인덱스.
 
 
-**ex) global index를 구하는 방법**
+**ex) GPU에서 몇 번째 스레드인지 global index를 구하는 방법**
 ```
 int idx = blockDim.x * blockIdx.x + threadIdx.x
 ```
