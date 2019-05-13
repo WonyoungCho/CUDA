@@ -13,6 +13,7 @@
 - SM의 32개의 스레드를 워프(Warp)라는 단위로 정의하며, 실행의 가작 장은 단위가 된다.
 
 Software | Hardware
+:-:|:-:
 Thread | CUDA core
 Thread Block | SM
 Grid | Device
