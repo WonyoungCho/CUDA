@@ -39,9 +39,9 @@ __host____device__cudaErro_t cudaFree(void *devPtr)
 ## Kernel Function
 Function | Run on | Call from| Return type
 :-:|:-:|:-|:-:
-`__global__` | Device | Host <br> Device in up to Compute capability 3.5 | void
-`__device__` | Device | Device <br> 그리드와 블록을 지정할 수 없다. |
-`__host__` | Host | Host | optional
+`__global__` | Device (GPU) | Host <br> Device in up to Compute capability 3.5 | void
+`__device__` | Device (GPU) | Device <br> 그리드와 블록을 지정할 수 없다. |
+`__host__` | Host (CPU) | Host | optional
 
 ## Kernel 호출
 ```c
