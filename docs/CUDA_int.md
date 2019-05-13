@@ -21,6 +21,10 @@
 - threadIdx : 몇 번째 스레드인지 나타내는 인덱스.
 
 
+**ex) global index를 구하는 방법**
+
+
+
 ## Runtime API
 ```c
 __host__cudaError_t cudaGetDeviceProperties(cudaDeviceProp *prop, int device)
