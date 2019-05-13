@@ -18,6 +18,7 @@ Thread | CUDA core
 Thread Block | SM
 Grid | Device
 
+
 ## Structure
 아래와 같은 계층 관계를 가지고 있다.
 > - Grid > Block > Thread
@@ -29,6 +30,22 @@ Grid | Device
 
 **ex) 아래 GPU 전체 스레드 그림에서 오렌지색의 스레드가 몇 번째 스레드인지 global index를 구하는 방법**
 ![CUDA indexing](./img/cuda_indexing.png)
+
+
+## Kernel Function
+Function | Run on | Call from| Return type
+:-:|:-:|:-|:-:
+`__global__` | Device (GPU) | Host <br> Device in up to Compute capability 3.5 | void
+`__device__` | Device (GPU) | Device <br> 그리드와 블록을 지정할 수 없다. |
+`__host__` | Host (CPU) | Host | optional
+
+## Kernel 호출
+```c
+function_name<<<nBlock,nThread>>>(argument list);
+```
+> - `nBlock` : 블록의 개수
+> - `nThread` : 각 블록에서 스레드의 개수
+
 
 ## Runtime API
 ```c
@@ -50,19 +67,6 @@ __host____device__cudaErro_t cudaFree(void *devPtr)
 ```
 > - `devPtr` : 해제될 메모리에 대한 디바이스 포인터
 
-## Kernel Function
-Function | Run on | Call from| Return type
-:-:|:-:|:-|:-:
-`__global__` | Device (GPU) | Host <br> Device in up to Compute capability 3.5 | void
-`__device__` | Device (GPU) | Device <br> 그리드와 블록을 지정할 수 없다. |
-`__host__` | Host (CPU) | Host | optional
-
-## Kernel 호출
-```c
-function_name<<<nBlock,nThread>>>(argument list);
-```
-> - `nBlock` : 블록의 개수
-> - `nThread` : 각 블록에서 스레드의 개수
 
 
 ## C로 작성된 파일을 Cuda로 compile할 때
