@@ -2,6 +2,7 @@
 ---
 
 ## Terminology
+- SIMT(Single Instruction Multiple Thread) : 하나의 명령어로 여러개의 스레드를 동작시킨다.(1개의 스레드=1개의 데이타 처리) (SIMD와 같은 개념)
 - GPU에서 실행되는 함수를 커널(kernel)이라고 부른다.
 - 레지스터는 커널에 선언되는 변수가 저장되는 메모리다.
 - 커널 호출에 의해 생성된 모든 스레드(Thread)를 그리드(Grid)라고 한다.
