@@ -39,6 +39,8 @@ Function | Run on | Call from| Return type
 `__device__` | Device (GPU) | Device <br> 그리드와 블록을 지정할 수 없다. |
 `__host__` | Host (CPU) | Host | optional
 
+> - 커널 함수는 반드시 void return type이어야 함.
+
 ## Kernel 호출
 ```c
 function_name<<<nBlock,nThread>>>(argument list);
