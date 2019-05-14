@@ -30,7 +30,7 @@ Grid | Device
 
 **ex) 아래 GPU 전체 스레드 그림에서 오렌지색의 스레드가 몇 번째 스레드인지 global index를 구하는 방법**
 ![CUDA indexing](./img/cuda_indexing.png)
-
+(https://devblogs.nvidia.com/even-easier-introduction-cuda/cuda_indexing/)
 
 ## Kernel Function
 Function | Run on | Call from| Return type
