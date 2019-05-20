@@ -63,7 +63,6 @@ Function | Run on | Call from| Return type
 
 - **Example - device**
 ```c
-$ cat devicekernel.cu
 #include <stdio.h>
 __global__ void helloFromHost();
 __device__ int helloFromDevice(int tid);
