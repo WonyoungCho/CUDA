@@ -9,9 +9,11 @@ extra_javascript: [docs.js]
 pages:
     - Home: 'index.md'
     - CUDA: 
+        - 'Installation': 'CUDA.md'
         - 'Introduction': 'CUDA_int.md'
         - 'Example': 'CUDA_ex.md'
     - PyCUDA: 
+        - 'Installation': 'PyCUDA.md'
         - 'Introduction': 'PyCUDA_int.md'
         - 'Example': 'PyCUDA_ex.md'
     
