@@ -9,10 +9,10 @@ extra_javascript: [docs.js]
 pages:
     - Home: 'index.md'
     - CUDA: 'CUDA.md'
-        - 'Introduction' : 'CUDA_int.md'
-        - 'Example' : 'CUDA_ex.md'
+        - 'Introduction': 'CUDA_int.md'
+        - 'Example': 'CUDA_ex.md'
     - PyCUDA: 'PyCUDA.md'
-        - 'Introduction' : 'PyCUDA_int.md'
-        - 'Example' : 'PyCUDA_ex.md'
+        - 'Introduction': 'PyCUDA_int.md'
+        - 'Example': 'PyCUDA_ex.md'
     
 theme: readthedocs
