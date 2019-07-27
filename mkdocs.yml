@@ -8,10 +8,10 @@ extra_javascript: [docs.js]
 
 pages:
     - Home: 'index.md'
-    - CUDA: 'CUDA.md'
+    - CUDA: 
         - 'Introduction': 'CUDA_int.md'
         - 'Example': 'CUDA_ex.md'
-    - PyCUDA: 'PyCUDA.md'
+    - PyCUDA: 
         - 'Introduction': 'PyCUDA_int.md'
         - 'Example': 'PyCUDA_ex.md'
     
