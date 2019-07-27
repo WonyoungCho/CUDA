@@ -1,4 +1,4 @@
-# Pycuda
+# PyCUDA
 
 ## Installation
 
