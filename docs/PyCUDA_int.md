@@ -57,5 +57,5 @@ print(a_gpu.get())
 
 ## Indexing thread
 
-작업을 **GPU kernel**로 넘겨주고 **kernel**에서 데이터를 다루려면, 계산이 이루어지는 **thread**의 **indexing** 이 중요한 요소중 하나이다.
+작업을 **GPU kernel**로 넘겨주고 **kernel**에서 데이터를 다루려면, 계산이 이루어지는 **thread**의 **indexing** 이 중요하다.
 
