@@ -24,11 +24,45 @@ from pycuda.compiler import SourceModule
 from pycuda import gpuarray
 ```
 
-- **CUDA C** 처럼 `pycuda.driver`를 불러와 프로그래밍 할 수도 있다.
+# Indexing thread
+
+작업을 **GPU kernel**로 넘겨주고 **kernel**에서 데이터를 다루려면, 계산이 이루어지는 **thread**의 **indexing** 이 중요하다.
+
+
+# Kernel function
+```python
+mod = SourceModule("""
+  __global__ void kernel(int *a)
+  {
+    int idx = threadIdx.x;
+    a[idx] += 10;
+  }
+  """)
+```
+
+# Kernel 호출
+```python
+kernel = mod.get_function("kernel")
+
+kernel(a_gpu, block=(10,1,1), grid=(1,1))
+```
+
+# Advantage of PyCUDA
+
+- **CUDA C** 처럼 `pycuda.driver`를 불러와 메모리를 할당하고 GPU에 넘겨주는 방식으로 프로그래밍 할 수도 있다.
 ```python
 import numpy
 import pycuda.driver as cuda
-  ( some code, GPU kernel)
+
+mod = SourceModule("""
+  __global__ void kernel(int *a)
+  {
+    int idx = threadIdx.x;
+    a[idx] += 10;
+  }
+  """)
+
+kernel = mod.get_function("kernel")
 
 a = numpy.zeros(10).astype(numpy.int)
 a_gpu = cuda.mem_alloc(a.nbytes)
@@ -45,7 +79,17 @@ print(a_result)
 이것을 `gpuarray`를 사용하여 적어보면 다음과 같다.
 ```python
 from pycuda import gpuarray
-  ( some code, GPU kernel)
+
+mod = SourceModule("""
+  __global__ void kernel(int *a)
+  {
+    int idx = threadIdx.x;
+    a[idx] += 10;
+  }
+  """)
+
+kernel = mod.get_function("kernel")
+
 
 a_gpu = gpuarray.zeros(10,int)
 
@@ -53,8 +97,3 @@ kernel(a_gpu, block=(10,1,1), grid=(1,1))
 
 print(a_gpu.get())
 ```
-
-# Indexing thread
-
-작업을 **GPU kernel**로 넘겨주고 **kernel**에서 데이터를 다루려면, 계산이 이루어지는 **thread**의 **indexing** 이 중요하다.
-
