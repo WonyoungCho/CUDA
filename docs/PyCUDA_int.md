@@ -2,7 +2,55 @@
 
 기본적인 개념과 구동 방식은 CUDA와 같다. Python 과 연계하여 GPU 프로그래밍을 하는 방식이다.
 
-CUDA 를 사용하기 위한 첫 번째는, kernel로 보내기 위한 과정들을 자동으로 초기화 하는 작업이다.
+- CUDA 를 사용하기 위한 첫 번째는, **kernel**로 보내기 위한 과정들을 자동으로 초기화 하는 작업이다.
 ```python
 import pycuda.autoinit
 ```
+
+- 다음으로는 **GPU kernel**에서 작동할 명령이 들어가는 라이브러리를 불러오는 일이다.
+```python
+from pycuda.compiler import SourceModule
+```
+
+- Python을 사용하다보면 `numpy array`를 많이 사용하는데, 이것을 GPU에서도 거의 동일하게 사용할 수 있다.
+```python
+from pycuda import gpuarray
+```
+
+따라서 기본으로 위 세개의 명령어는 쓰고 시작한다.
+```python
+import pycuda.autoinit
+from pycuda.compiler import SourceModule
+from pycuda import gpuarray
+```
+
+- **CUDA C** 처럼 `pycuda.driver`를 불러와 프로그래밍 할 수도 있다.
+```python
+import numpy
+import pycuda.driver as cuda
+  ( some code, GPU kernel)
+
+a = numpy.zeros(10).astype(numpy.int)
+a_gpu = cuda.mem_alloc(a.nbytes)
+cuda.memcpy_htod(a_gpu, a)
+
+kernel(a_gpu, block=(10,1,1), grid=(1,1))
+
+a_result = numpy.empty_like(a)
+cuda.memcpy_dtoh(a_result, a_gpu)
+
+print(a_result)
+```
+
+이것을 `gpuarray`를 사용하면 다음과 같다.
+```python
+from pycuda import gpuarray
+  ( some code, GPU kernel)
+
+a_gpu = gpuarray.zeros(10,int)
+
+kernel(a_gpu, block=(10,1,1), grid=(1,1))
+
+print(a_gpu.get())
+```
+
