@@ -1,7 +1,4 @@
-# Introduction
----
-
-## Terminology
+# Terminology
 - SIMT(Single Instruction Multiple Thread) : 하나의 명령어로 여러개의 스레드를 동작시킨다.(1개의 스레드=1개의 데이타 처리) (SIMD와 같은 개념)
 - GPU에서 실행되는 함수를 커널(kernel)이라고 부른다.
 - 레지스터는 커널에 선언되는 변수가 저장되는 메모리다.
@@ -19,7 +16,7 @@ Thread Block | SM
 Grid | Device
 
 
-## Structure
+# Structure
 아래와 같은 계층 관계를 가지고 있다.
 > - Grid > Block > Thread
 - gridDim : 한 그리드 내 블록의 수.
@@ -41,7 +38,7 @@ Function | Run on | Call from| Return type
 
 > - 커널 함수는 반드시 void return type이어야 함.
 
-## Kernel 호출
+# Kernel 호출
 ```c
 function_name<<<nBlock,nThread>>>(argument list);
 ```
@@ -49,7 +46,7 @@ function_name<<<nBlock,nThread>>>(argument list);
 > - `nThread` : 각 블록에서 스레드의 개수
 
 
-## Runtime API
+# Runtime API
 ```c
 __host__cudaError_t cudaGetDeviceProperties(cudaDeviceProp *prop, int device)
 ```
@@ -71,12 +68,12 @@ __host____device__cudaErro_t cudaFree(void *devPtr)
 
 
 
-## C로 작성된 파일을 Cuda로 compile할 때
+# C로 작성된 파일을 Cuda로 compile할 때
 ```c
 nvcc -arch=sm_70 -x cu hello.c -o a
 ```
 
-## Batch file
+# Batch file
 ```batch
 #!/bin/sh
 #SBATCH -J gpu_05
