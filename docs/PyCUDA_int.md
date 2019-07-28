@@ -42,7 +42,7 @@ cuda.memcpy_dtoh(a_result, a_gpu)
 print(a_result)
 ```
 
-이것을 `gpuarray`를 사용하면 다음과 같다.
+이것을 `gpuarray`를 사용하여 적어보면 다음과 같다.
 ```python
 from pycuda import gpuarray
   ( some code, GPU kernel)
