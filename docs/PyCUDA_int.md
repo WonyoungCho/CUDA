@@ -1,5 +1,6 @@
-# PyCYDA 
 **PuCUDA**는 Python을 기본으로 하여 GPU 에서 작업이 작동하도록 하는 방식이다. GPU 계산이 되는 kernel 부분의 명령어는 **c언어** 로 작성해야 한다.
+
+# Library
 
 - CUDA 를 사용하기 위한 첫 번째는, **kernel**로 보내기 위한 과정들을 자동으로 초기화 하는 작업이다.
 ```python
