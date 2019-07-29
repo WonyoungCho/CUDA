@@ -49,7 +49,7 @@ kernel(a_gpu, block=(10,1,1), grid=(1,1))
 
 # GPUArray
 
-- **CUDA C** 처럼 `pycuda.driver`를 불러와 메모리를 할당하고 GPU에 넘겨주는 방식으로 프로그래밍 할 수도 있다.
+- **CUDA C** 처럼 `pycuda.driver`를 불러와 메모리를 할당하고 GPU에 넘겨주는 방식으로 프로그래밍 할 수 있다.
 ```python
 import numpy
 import pycuda.driver as cuda
