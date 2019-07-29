@@ -47,7 +47,7 @@ kernel = mod.get_function("kernel")
 kernel(a_gpu, block=(10,1,1), grid=(1,1))
 ```
 
-# Advantage of PyCUDA
+# GPUArray
 
 - **CUDA C** 처럼 `pycuda.driver`를 불러와 메모리를 할당하고 GPU에 넘겨주는 방식으로 프로그래밍 할 수도 있다.
 ```python
@@ -75,8 +75,7 @@ cuda.memcpy_dtoh(a_result, a_gpu)
 
 print(a_result)
 ```
-
-이것을 `gpuarray`를 사용하여 적어보면 다음과 같다.
+위에서는 CPU에서 만든 array를 GPU의 메모리를 할당(`cuda.mem_alloc`)하고, GPU로 보내주는 작업(`cuda.memcpy_htod`)을 하였는데, `gpuarray`를 사용하면 GPU 메모리에 바로 쓰고 사용할 수 있다.
 ```python
 from pycuda import gpuarray
 
