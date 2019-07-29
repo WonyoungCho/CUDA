@@ -17,7 +17,7 @@ from pycuda.compiler import SourceModule
 from pycuda import gpuarray
 ```
 
-따라서 프로그래밍 할 때는 위 세개의 명령어를 쓰고 시작한다.
+따라서 프로그래밍 할 때는 위 세개의 모듈을 불러오고 시작한다.
 ```python
 import pycuda.autoinit
 from pycuda.compiler import SourceModule
