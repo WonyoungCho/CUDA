@@ -90,7 +90,6 @@ mod = SourceModule("""
 
 kernel = mod.get_function("kernel")
 
-
 a_gpu = gpuarray.zeros(10,int)
 
 kernel(a_gpu, block=(10,1,1), grid=(1,1))
