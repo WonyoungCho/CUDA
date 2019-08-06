@@ -73,9 +73,11 @@ kernel(a_gpu, block=(10,1,1), grid=(1,1))
 a_result = numpy.empty_like(a)
 cuda.memcpy_dtoh(a_result, a_gpu)
 
+a_gpu.free()
+
 print(a_result)
 ```
-위에서는 CPU에서 만든 array를 GPU의 메모리를 할당(`cuda.mem_alloc`)하고, GPU로 보내주는 작업(`cuda.memcpy_htod`)을 하였는데, `gpuarray`를 사용하면 GPU 메모리에 바로 쓰고 사용할 수 있다.
+위에서는 CPU에서 만든 array를 GPU에 메모리를 할당(`cuda.mem_alloc`)하고, GPU로 보내주는 작업(`cuda.memcpy_htod`)을 하고, 작업이 끝나면 해제하였는데, `gpuarray`를 사용하면 GPU 메모리에 바로 올려 사용하고 해제도 된다.
 ```python
 from pycuda import gpuarray
 
