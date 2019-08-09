@@ -1,5 +1,5 @@
 # Specification
-'''sh
+```sh
 Device : "GeForce RTX 2080 Ti"
 driverVersion : 10010
 runtimeVersion : 10000
@@ -18,4 +18,4 @@ runtimeVersion : 10000
         Maximum number of thread per block:     1024
         Maximum sizes of each dimension of a block:     1024 x 1024 x 64
         Maximum sizes of each dimension of a grid:      2147483647 x 65535 x 65535
-'''
+```
