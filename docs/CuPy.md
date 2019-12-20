@@ -1,4 +1,5 @@
-<https://docs-cupy.chainer.org/en/stable/index.html>
+- Homepage : <https://docs-cupy.chainer.org/en/stable/index.html>
+- Documentation : <https://readthedocs.org/projects/cupy/downloads/pdf/stable/>
 
 # Installation
 ```
