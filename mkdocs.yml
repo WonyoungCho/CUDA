@@ -16,6 +16,8 @@ pages:
         - 'Installation': 'PyCUDA.md'
         - 'Introduction': 'PyCUDA_int.md'
         - 'Example': 'PyCUDA_ex.md'
+    - CuPy:
+        - 'Installation': 'CuPy.md'
     - GPU:
         - 'GTX TITAN X': 'gtxTitanX.md'
         - 'RTX 2080 Ti': 'rtx2080Ti.md'
