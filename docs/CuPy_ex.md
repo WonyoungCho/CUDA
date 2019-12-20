@@ -1,5 +1,5 @@
 # Memory usage
-`cupy.ones((1400000,1000))` array uses 10856MiB/11019MiB on *RTX 2080 Ti*.
+`cupy.ones((1400000,1000))` array uses **10856MiB/11019MiB** on RTX 2080 Ti.
 ```
 import cupy as cp
 x_gpu=cp.ones((1400000,1000))
