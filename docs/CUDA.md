@@ -18,6 +18,12 @@ alias lg='sacct'
 $ wget https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-repo-rhel7-10.2.89-1.x86_64.rpm
 $ sudo rpm -i cuda-repo-*.rpm
 $ sudo yum install cuda
+$ emacs ~/.bashrc
+export PATH=/usr/local/cuda/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+$ source ~/.bashrc
+$ nvcc --version
+$ nvidia-smi
 ```
 
 
