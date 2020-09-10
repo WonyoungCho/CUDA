@@ -10,10 +10,31 @@ alias lg='sacct'
 ---
 
 # Install
-- <https://linuxconfig.org/how-to-install-the-nvidia-drivers-on-centos-7-linux>
-- <https://linuxconfig.org/how-to-install-nvidia-cuda-toolkit-on-centos-7-linux>
-- <https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/>
 
+**Cuda driver**
+- <https://linuxconfig.org/how-to-install-the-nvidia-drivers-on-centos-7-linux>
+- Driver : <https://www.nvidia.com/en-us/drivers/unix/>
+- Download : <https://www.nvidia.com/Download/index.aspx>
+```
+$ wget https://us.download.nvidia.com/XFree86/Linux-x86_64/450.66/NVIDIA-Linux-x86_64-450.66.run
+$ sudo yum groupinstall "Development Tools"
+$ sudo yum install -y kernel-devel epel-release
+$ sudo yum install -y dkms
+$ sudo emacs /etc/default/grub
+GRUB_CMDLINE_LINUX="crashkernel=auto rhgb quiet nouveau.modeset=0" # nouveau.modeset=0 must be in this line.
+$ sudo grub2-mkconfig -o /boot/grub2/grub.cfg # BIOS
+$ sudo grub2-mkconfig -o /boot/efi/EFI/centos/grub.cfg # EFI
+
+$ sudo reboot now
+
+$ sudo systemctl isolate multi-user.target
+$ sudo bash NVIDIA-Linux-x86_64-*
+YES
+```
+
+**Cuda toolkit**
+- <https://linuxconfig.org/how-to-install-nvidia-cuda-toolkit-on-centos-7-linux>
+- Toolkit : <https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/>
 ```
 $ wget https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-repo-rhel7-10.2.89-1.x86_64.rpm
 $ sudo rpm -i cuda-repo-*.rpm
