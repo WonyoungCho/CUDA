@@ -12,6 +12,7 @@ alias lg='sacct'
 # Install
 
 **Cuda driver**
+
 - <https://linuxconfig.org/how-to-install-the-nvidia-drivers-on-centos-7-linux>
 - Driver : <https://www.nvidia.com/en-us/drivers/unix/>
 - Download : <https://www.nvidia.com/Download/index.aspx>
@@ -33,6 +34,7 @@ YES
 ```
 
 **Cuda toolkit**
+
 - <https://linuxconfig.org/how-to-install-nvidia-cuda-toolkit-on-centos-7-linux>
 - Toolkit : <https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/>
 ```
