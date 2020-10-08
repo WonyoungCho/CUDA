@@ -18,7 +18,8 @@ int main(void)
 ```sh
 nvcc -arch=sm_75 hello.cu -o a
 ```
-- RTX 2080 Ti : 7.5
+> - RTX 2080 Ti : 7.5
+
 
 - **Batch file**
 ```batch
