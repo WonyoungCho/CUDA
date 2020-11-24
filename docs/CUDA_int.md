@@ -9,8 +9,9 @@
 - SM(Streaming Multiprocessor)은 8개의 SP로 구성되어 있다.
 - SM의 32개의 스레드를 워프(Warp)라는 단위로 정의하며, 실행의 가작 장은 단위가 된다.
 
-Reference : <https://stackoverflow.com/questions/3519598/streaming-multiprocessors-blocks-and-threads-cuda>
-
+Reference
+- <https://stackoverflow.com/questions/3519598/streaming-multiprocessors-blocks-and-threads-cuda>
+- <http://donghyun53.net/nvidia-gpu-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EB%B3%80%EC%B2%9C%EC%82%AC-%EC%83%81%ED%8E%B8/>
 
 Software | Hardware
 :-:|:-:
