@@ -5,11 +5,11 @@
 - 커널 호출에 의해 생성된 모든 스레드(Thread)를 그리드(Grid)라고 한다.
 - 그리드는 많은 스레드 블록(Block)으로 구성된다. (max_grid = (2147483647, 65535, 65535))
 - 스레드 블록은 스레드들의 묶음이다. (max_thread = 1024 threads/block)
-- SP(Streaming Processor: GPU의 기본단위, cuda core)는 4개의 스레드로 구성되어 있다.
+- SP(Streaming Processor: GPU의 기본단위, cuda core)는 GPU architecture에 따라 n개의 스레드로 구성되어 있다.
 - SM(Streaming Multiprocessor)은 8개의 SP로 구성되어 있다.
 - SM의 32개의 스레드를 워프(Warp)라는 단위로 정의하며, 실행의 가작 장은 단위가 된다.
 
-<https://stackoverflow.com/questions/3519598/streaming-multiprocessors-blocks-and-threads-cuda>
+Reference : <https://stackoverflow.com/questions/3519598/streaming-multiprocessors-blocks-and-threads-cuda>
 
 
 Software | Hardware
